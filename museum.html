@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEMIMAH: Digital Museum - Archive of Innovation</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&family=Oswald:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================================== */
+        /* == 1. CSS STYLES: DIGITAL MUSEUM / ARCHIVAL AESTHETIC == */
+        /* ========================================================== */
+        
+        :root {
+            --bg: #0A0A10; /* Deep Slate Black */
+            --primary-blue: #ADD8E6; /* Light Blue/Cyan Accent */
+            --glowing-white: #FFFFFF;
+            --main-font: 'Roboto Mono', monospace; /* Clean, modern terminal */
+            --heading-font: 'Oswald', sans-serif; /* Architectural, bold headings */
+            --shadow-glow: 0 0 10px rgba(173, 216, 230, 0.4); /* Subtle Blue Glow */
+        }
+
+        /* Base & Global Reset */
+        body {
+            background-color: var(--bg);
+            color: var(--glowing-white);
+            font-family: var(--main-font);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+        }
+        
+        h1, h2, h3 {
+            font-family: var(--heading-font);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--primary-blue);
+        }
+
+        /* --- Global Architectural Title Effect --- */
+        .title-text {
+            border-bottom: 2px solid var(--primary-blue);
+            padding-bottom: 5px;
+            margin-bottom: 50px;
+            text-align: left;
+            font-size: 2em;
+            text-shadow: 0 0 2px var(--primary-blue);
+        }
+        
+        /* --- Panel Structure (The Galleries) --- */
+        .panel {
+            min-height: 80vh;
+            padding: 100px 8%;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(10, 10, 16, 0.8); /* Dark layer for contrast */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- WELCOME SCREEN (The Grand Hall) --- */
+        #welcome {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(180deg, #1A1A2A 0%, var(--bg) 100%);
+            border-bottom: 5px double var(--primary-blue);
+        }
+        #welcome h1 {
+            font-size: 6em;
+            color: var(--glowing-white);
+            text-shadow: var(--shadow-glow);
+            margin-bottom: 0;
+            line-height: 1;
+        }
+        #welcome h2 {
+            font-size: 1.2em;
+            color: var(--primary-blue);
+            margin-top: 10px;
+            text-shadow: 0 0 5px rgba(173, 216, 230, 0.6);
+        }
+        #welcome p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 50px;
+            font-size: 1em;
+            max-width: 600px;
+        }
+
+        /* --- Data Blocks (Artifact Display Plinths) --- */
+        .data-box {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 5px solid var(--primary-blue);
+            box-shadow: 0 0 15px rgba(173, 216, 230, 0.1);
+            padding: 25px;
+            margin: 25px auto;
+            max-width: 700px;
+            font-size: 0.9em;
+            transition: all 0.4s;
+        }
+        .data-box:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: var(--glowing-white);
+            box-shadow: 0 0 20px rgba(173, 216, 230, 0.6);
+        }
+        .data-box strong {
+            color: var(--primary-blue);
+        }
+
+        /* --- Skills List (The Core Artifacts) --- */
+        .skill-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .skill-list li {
+            background: #151520;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            text-align: center;
+            font-size: 0.85em;
+            transition: all 0.3s;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .skill-list li:hover {
+            background: var(--primary-blue);
+            color: var(--bg);
+            font-weight: bold;
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-3px);
+        }
+        
+        /* --- Project Grid (Gallery Installations) --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        .project-card {
+            background: rgba(15, 15, 25, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            transition: all 0.4s;
+            cursor: pointer;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+        }
+        .project-card:hover {
+            border-color: var(--primary-blue);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-8px);
+        }
+        .project-card h3 {
+            font-size: 1.2em;
+            color: var(--glowing-white);
+            text-align: left;
+            margin-top: 0;
+            text-shadow: var(--shadow-glow);
+            line-height: 1.2;
+        }
+        .project-card p {
+            font-size: 0.85em;
+            text-align: left;
+            margin: 5px 0;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* --- Project Detail (Plaque Information) --- */
+        .project-detail {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.2);
+            font-size: 0.8em;
+        }
+        .project-detail strong {
+            color: var(--primary-blue);
+            display: block;
+            margin-bottom: 5px;
+        }
+        .project-detail .tech-stack {
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 10px;
+            display: block;
+        }
+
+        /* --- Buttons & Links (Navigation Markers) --- */
+        .nav-button {
+            display: block;
+            width: 320px;
+            margin: 60px auto;
+            padding: 15px;
+            text-align: center;
+            background: none;
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-family: var(--heading-font);
+            border: 2px solid var(--primary-blue);
+            box-shadow: var(--shadow-glow);
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+            font-size: 1.1em;
+        }
+        .nav-button:hover {
+            background: var(--primary-blue);
+            color: var(--bg);
+            box-shadow: 0 0 30px var(--primary-blue);
+        }
+
+        /* ============================================================== */
+        /* == NEW: CONTACT DISPLAY STYLES (Archive Desk Information) == */
+        /* ============================================================== */
+        .comms-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            margin: 40px auto;
+            max-width: 600px;
+        }
+        .comms-card {
+            display: flex;
+            align-items: center;
+            width: 90%;
+            max-width: 550px;
+            padding: 20px 30px;
+            background: #151520; /* Dark background for card */
+            border: 2px solid var(--primary-blue);
+            box-shadow: var(--shadow-glow);
+            transition: all 0.3s;
+        }
+        .comms-card:hover {
+            background: #1A1A2A;
+            box-shadow: 0 0 25px var(--primary-blue);
+            transform: translateY(-2px);
+        }
+        .comms-icon {
+            font-size: 2em;
+            color: var(--glowing-white);
+            margin-right: 25px;
+            font-family: Arial, sans-serif; /* Using a non-mono font for clean icons */
+            line-height: 1;
+            text-shadow: 0 0 5px var(--primary-blue);
+        }
+        .comms-info h4 {
+            font-family: var(--heading-font);
+            font-size: 1.1em;
+            color: var(--primary-blue);
+            margin: 0 0 5px 0;
+            text-align: left;
+            letter-spacing: 2px;
+        }
+        .comms-info p {
+            font-family: var(--main-font);
+            font-size: 0.9em;
+            color: var(--glowing-white);
+            margin: 0;
+            line-height: 1.4;
+        }
+        
+        /* --- Keyframe Animations --- */
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loading-screen" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 1s;">
+        <h1 style="font-family: var(--heading-font); font-size: 2.5em; text-shadow: var(--shadow-glow); color: var(--primary-blue);">ACCESSING ARCHIVES...</h1>
+        <div style="width: 350px; height: 3px; background: rgba(255, 255, 255, 0.1); margin-top: 30px; position: relative;">
+            <div id="loading-bar" style="height: 100%; width: 0%; background: var(--primary-blue); transition: width 0.1s;"></div>
+        </div>
+    </div>
+
+    <div id="portfolio-container" style="display: none; animation: fade-in 1s;">
+        
+        <section id="welcome" class="panel level-0">
+            <h1>The JEMIMAH WARREN</h1>
+            <h2>Digital Archive of Innovation</h2>
+            <p>
+                Welcome to the Museum of Computer Systems Engineering. This archive showcases key artifacts, core competencies, and major installations by Engineer JEMIMAH.
+            </p>
+            <a href="#intro" class="nav-button" style="margin-top: 60px;">ENTER EXHIBIT &gt;</a>
+        </section>
+
+        <section id="intro" class="panel level-1">
+            <h1 class="title-text">Artifact Display // Personnel File</h1>
+            
+            <div class="data-box" style="max-width: 900px; padding: 40px;">
+                <p><strong>NAME:</strong> JEMIMAH WARREN</p>
+                <p><strong>FOCUS:</strong> AI / Embedded Systems Engineering</p>
+                <p><strong>PRIMARY ACCESS:</strong> jemimahwarren3@gmail.com</p>
+                <p><strong>SECONDARY ACCESS:</strong> +263 776 727 967</p>
+                <p><strong>LINKEDIN:</strong> http://linkedin/jemimawarren.com</p>
+            </div>
+            <a href="#objective" class="nav-button">VIEW CURATOR'S STATEMENT &gt;</a>
+        </section>
+
+        <section id="objective" class="panel level-2">
+            <h2 class="title-text">Curator's Statement // Career Objective</h2>
+            <div class="data-box" style="max-width: 1000px; background: rgba(173, 216, 230, 0.05);">
+                <p style="font-size: 1.1em; color: var(--glowing-white);">
+                    The primary objective of this exhibit is to secure an internship where the specialized artifacts advanced knowledge in AI, embedded systems, and IoT can be integrated into a functional industry setting. The goal is to evolve theoretical competence into practical, impactful contributions to software development and systems engineering projects.
+                </p>
+            </div>
+            <a href="#education" class="nav-button">ACCESS ARCHIVAL RECORDS &gt;</a>
+        </section>
+
+        <section id="education" class="panel level-3">
+            <h2 class="title-text">Archival Records // Academic History</h2>
+            
+            <div class="data-box">
+                <h3>[ACQUISITION 2024–2027]: Computer Systems Engineering (BSc)</h3>
+                <p>Midlands State University (Active Enrollment)</p>
+            </div>
+            
+            <div class="data-box">
+                <h3>[ACQUISITION 2022–2023]: Advanced Level Certificate (3 Passes)</h3>
+                <p>Regina Mundi High School</p>
+            </div>
+             <div class="data-box">
+                <h3>[ACQUISITION 2018–2021]: Ordinary Level Certificate (11 Passes)</h3>
+                <p>Regina Mundi High School</p>
+            </div>
+            <a href="#skills" class="nav-button">PROCEED TO CORE EXHIBIT &gt;</a>
+        </section>
+
+        <section id="skills" class="panel level-4">
+            <h2 class="title-text">Exhibit // Core Competencies</h2>
+            
+            <h3 style="color: var(--primary-blue); font-size: 1.2em; text-align: center; margin-bottom: 30px;">[SECTION 1]: LANGUAGES & FRAMEWORKS</h3>
+            <ul class="skill-list">
+                <li>PYTHON (CORE)</li>
+                <li>C</li>
+                <li>JAVA</li>
+                <li>JAVASCRIPT</li>
+                <li>PHP</li>
+                <li>REACT.JS</li>
+                <li>HTML5 / CSS3</li>
+                <li>DJANGO / MYSQL</li>
+            </ul>
+
+            <h3 style="color: var(--primary-blue); font-size: 1.2em; margin-top: 50px; text-align: center; margin-bottom: 30px;">[SECTION 2]: EMBEDDED & DEVOPS ARTIFACTS</h3>
+            <ul class="skill-list">
+                <li>ARDUINO / ESP32</li>
+                <li>MICROCONTROLLER</li>
+                <li>IOT INTEGRATION</li>
+                <li>GIT/GITHUB</li>
+                <li>LINUX / DOCKER</li>
+                <li>MYSQL / FIREBASE</li>
+            </ul>
+
+            <a href="#projects" class="nav-button">VISIT GALLERY FLOOR &gt;</a>
+        </section>
+
+        <section id="projects" class="panel level-5">
+            <h2 class="title-text">Gallery Floor // Major Installations (Projects)</h2>
+            
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>INSTALLATION 1: THE SKY EYE</h3>
+                    <p>Multi-Sensor Drone Platform</p>
+                    <div class="project-detail">
+                        <strong>DESCRIPTION:</strong> Integration of MQ4 and DHT22 sensors on an ESP32-based UAV for real-time environmental data acquisition and transmission via IoT protocols.
+                        <span class="tech-stack">[TAGS]: ESP32, MQ4, DHT22, IoT Integration</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3>INSTALLATION 2: N.L.U. BOT</h3>
+                    <p>AI Chatbot System</p>
+                    <div class="project-detail">
+                        <strong>DESCRIPTION:</strong> Creation of an intelligent chatbot utilizing Python (NLTK) for sophisticated natural language understanding and automated query resolution.
+                        <span class="tech-stack">[TAGS]: Python, NLTK, NLP</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3>INSTALLATION 3: ECO-KINETICS</h3>
+                    <p>Kinetic Energy Conversion Initiative</p>
+                    <div class="project-detail">
+                        <strong>DESCRIPTION:</strong> Co-founded and engineered a sustainability project focusing on converting kinetic energy into usable electric power for communal solutions.
+                        <span class="tech-stack">[TAGS]: Electromechanical Design, Sustainability</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>INSTALLATION 4: CHRONOS-MED</h3>
+                    <p>Secure Medical Web Application</p>
+                    <div class="project-detail">
+                        <strong>DESCRIPTION:</strong> Designed and implemented a responsive healthcare management web application using a modern full-stack framework for data storage and scheduling.
+                        <span class="tech-stack">[TAGS]: Django, React.js, MySQL</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>INSTALLATION 5: SANITATION-UNIT-7</h3>
+                    <p>Smart Waste Management System</p>
+                    <div class="project-detail">
+                        <strong>DESCRIPTION:</strong> IoT prototype using ESP32 and level sensors to dynamically optimize municipal garbage collection routes.
+                        <span class="tech-stack">[TAGS]: ESP32, IoT Sensors, Optimization Algorithms</span>
+                    </div>
+                </div>
+                
+                <div class="project-card">
+                    <h3>INSTALLATION 6: THE WATCHER</h3>
+                    <p>Facial Recognition Attendance System</p>
+                    <div class="project-detail">
+                        <strong>DESCRIPTION:</strong> Python and OpenCV-based system automating attendance tracking through real-time facial recognition.
+                        <span class="tech-stack">[TAGS]: Python, OpenCV, Machine Learning</span>
+                    </div>
+                </div>
+            </div>
+            <a href="#achievements" class="nav-button">VIEW RECOGNITION HALL &gt;</a>
+        </section>
+
+        <section id="achievements" class="panel level-6">
+            <h2 class="title-text">Recognition Hall // Honors & Leadership</h2>
+            
+            <div class="data-box" style="max-width: 900px; background: rgba(173, 216, 230, 0.05);">
+                <h3 style="color: var(--glowing-white); font-size: 1.2em; text-align: left;"> &gt; ARCHIVAL HONORS</h3>
+                <ul style="list-style-type: '— ';">
+                    <li style="color: rgba(255, 255, 255, 0.8);">Represented Midlands State University at National Enactus Competitions.</li>
+                    <li style="color: rgba(255, 255, 255, 0.8);">Led the Eco-Kinetics project team, recognized for innovation in clean energy development.</li>
+                    <li style="color: rgba(255, 255, 255, 0.8);">Maintained consistent high academic performance in core engineering subjects.</li>
+                </ul>
+
+                <h3 style="color: var(--glowing-white); margin-top: 40px; font-size: 1.2em; text-align: left;"> &gt; LEADERSHIP POSTS</h3>
+                <ul style="list-style-type: '— ';">
+                    <li style="color: rgba(255, 255, 255, 0.8);">Member, Enactus MSU: Active in project management, proposal pitching, and technical demonstrations.</li>
+                    <li style="color: rgba(255, 255, 255, 0.8);">Volunteer Tutor: Assisted first-year students with Python fundamentals and circuit design.</li>
+                </ul>
+            </div>
+            <a href="#contact" class="nav-button">PROCEED TO ARCHIVE DESK &gt;</a>
+        </section>
+
+        <section id="contact" class="panel level-7">
+            <h2 class="title-text">The Archive Desk // Communication Terminal</h2>
+            
+            <div class="comms-container">
+                
+                <h3 style="color: var(--primary-blue); font-size: 1.1em; text-align: center; width: 100%; text-shadow: var(--shadow-glow);">
+                    DIRECT ACCESS CHANNELS
+                </h3>
+
+                <div class="comms-card">
+                    <span class="comms-icon">📧</span>
+                    <div class="comms-info">
+                        <h4>PRIMARY CHANNEL (EMAIL)</h4>
+                        <p>jemimahwarren3@gmail.com</p>
+                    </div>
+                </div>
+
+                <div class="comms-card">
+                    <span class="comms-icon">📞</span>
+                    <div class="comms-info">
+                        <h4>VOICE LINE (PHONE)</h4>
+                        <p>+263 776 727 967</p>
+                    </div>
+                </div>
+
+                
+
+            </div>
+            
+            <p style="text-align: center; color: rgba(255, 255, 255, 0.4); font-family: var(--main-font); margin-top: 50px;">
+                — END OF ARCHIVE —
+            </p>
+        </section>
+        </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadingScreen = document.getElementById('loading-screen');
+            const loadingBar = document.getElementById('loading-bar');
+            const container = document.getElementById('portfolio-container');
+            let progress = 0;
+
+            // 1. Loading Simulation
+            const interval = setInterval(() => {
+                progress += 5;
+                loadingBar.style.width = progress + '%';
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    
+                    setTimeout(() => {
+                        loadingScreen.style.opacity = '0'; 
+                        
+                        setTimeout(() => {
+                            loadingScreen.style.display = 'none'; 
+                            container.style.display = 'block';
+                            document.getElementById('welcome').scrollIntoView({ behavior: 'instant' });
+                        }, 1000); 
+                    }, 500); 
+                }
+            }, 50);
+
+            // 2. Smooth Scrolling for internal navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // 3. Subtle hover effect on project cards (No aggressive glitch/distortion needed here)
+            document.querySelectorAll('.project-card').forEach(card => {
+                const originalShadow = card.style.boxShadow;
+                card.addEventListener('mouseenter', () => {
+                    card.style.boxShadow = '0 0 15px rgba(173, 216, 230, 0.8)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.boxShadow = originalShadow;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
